@@ -1,5 +1,6 @@
 package com.shop.demo.domain.orders;
 
+import com.shop.demo.common.ItemInfo;
 import com.shop.demo.common.Money;
 import lombok.*;
 
@@ -22,17 +23,8 @@ public class OrderItem {
     @ManyToOne(fetch = FetchType.LAZY)
     private Order order;
 
-    /**
-     * 상품 정보가 바뀐들 딱히 Order에 타격 제로
-     * 가격 바뀌어도 그건 Product 일이지 order는 자체적인 price 가지고 있으니까 여기 price와 노상관(변경 막음)
-     */
-    @Column(nullable = false)
-    private Long productId;
-
-    private Long productOptionId;
-
-    @Column(nullable = false)
-    private int count;
+    @Embedded
+    private ItemInfo itemInfo;
 
     /**
      * 상품 주문했는데 가격이 바뀜 -> 큰일 (가격은 바뀌는거 자체만으로 굉장한 타격임,,
