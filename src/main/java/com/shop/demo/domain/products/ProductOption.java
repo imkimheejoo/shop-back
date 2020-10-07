@@ -1,0 +1,22 @@
+package com.shop.demo.domain.products;
+
+import lombok.*;
+
+import javax.persistence.*;
+
+@Entity
+@Getter
+@AllArgsConstructor
+@EqualsAndHashCode(of = "id")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class ProductOption {
+
+    @Id @GeneratedValue
+    private Long id;
+
+    @Column(nullable = false)
+    private String option;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private Product product;
+}
