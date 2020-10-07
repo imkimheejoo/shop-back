@@ -28,12 +28,22 @@ class AccountApiControllerTest extends MockMvcTemplate {
 
     @Transactional
     @Test
+    void 일반고객_login_이메일_empty() throws Exception {
+        mockMvc.perform(post("/api/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(new LoginRequestDto("", "password"))))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+    @Transactional
+    @Test
     void 일반고객_login_실패_아이디_존재하지_않음() throws Exception {
         mockMvc.perform(post("/api/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(new LoginRequestDto("exception@email.com", "password"))))
                 .andDo(print())
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isUnauthorized());
     }
 
     @Transactional
@@ -43,7 +53,7 @@ class AccountApiControllerTest extends MockMvcTemplate {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(new LoginRequestDto("email@email.com", "exception"))))
                 .andDo(print())
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isUnauthorized());
 
     }
 
