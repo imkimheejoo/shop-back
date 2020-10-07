@@ -28,6 +28,9 @@ public class Product {
     @OneToMany
     private List<ProductOption> options = new ArrayList<>();
 
+    @Enumerated(EnumType.STRING)
+    private Category category;
+
     @Embedded
     private Money price;
 
