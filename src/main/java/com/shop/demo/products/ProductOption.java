@@ -21,6 +21,6 @@ public class ProductOption {
     @Embedded
     private Money optionPrice;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
 }

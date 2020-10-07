@@ -9,6 +9,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "orders")
 @Getter
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")

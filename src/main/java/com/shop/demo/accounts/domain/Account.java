@@ -1,7 +1,8 @@
 package com.shop.demo.accounts.domain;
 
-import com.shop.demo.accounts.dto.SignUpRequestDto;
 import lombok.*;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 
@@ -26,13 +27,24 @@ public class Account {
     private String name;
 
     @Enumerated(EnumType.STRING)
-    private AccountRole accountRole;
+    private AccountRole role;
 
     @Builder
-    public Account(String email, String password, String name, AccountRole accountRole) {
+    public Account(String email, String password, String name, AccountRole role) {
         this.email = email;
         this.password = password;
         this.name = name;
-        this.accountRole = accountRole;
+        this.role = role;
     }
+
+    public UserDetails toUserDetails() {
+        return LoggedInAccount.accountBuilder()
+                .id(id)
+                .email(email)
+                .password(password)
+                .name(name)
+                .role(role)
+                .build();
+    }
+
 }
