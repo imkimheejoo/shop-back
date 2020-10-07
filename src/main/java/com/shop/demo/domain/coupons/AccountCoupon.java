@@ -11,6 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class AccountCoupon {
 
+    // TODO: 2020/10/07 대대적인 공사필요
     @Id
     @GeneratedValue
     private Long id;

@@ -31,6 +31,7 @@ public class OrderItem {
 
     private Long productOptionId;
 
+    @Column(nullable = false)
     private int count;
 
     /**
@@ -38,6 +39,7 @@ public class OrderItem {
      * 내가 5000원 짜리를 삿다고 생각햇는데 50000원 주문했다고 써있다,,? 그럼 전쟁인거임)
      * -> 큰일 (그래서 주문에도 가격이 필요 = 증거확보(난 이 가격으로 샀다))
      */
+    @Embedded
     private Money price;
 
 }
