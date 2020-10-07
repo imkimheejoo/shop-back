@@ -18,7 +18,7 @@ public class Product {
     private Long id;
 
     @Column(nullable = false)
-    private String name;
+    private String title;
 
     private String description;
 
