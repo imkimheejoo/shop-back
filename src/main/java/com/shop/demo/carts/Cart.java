@@ -1,6 +1,6 @@
-package com.shop.demo.domain.carts;
+package com.shop.demo.carts;
 
-import com.shop.demo.domain.accounts.Account;
+import com.shop.demo.accounts.Account;
 import lombok.*;
 
 import javax.persistence.*;

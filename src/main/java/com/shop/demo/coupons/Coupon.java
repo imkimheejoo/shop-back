@@ -1,6 +1,6 @@
-package com.shop.demo.domain.reviews;
+package com.shop.demo.coupons;
 
-import com.shop.demo.common.Content;
+import com.shop.demo.common.Money;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,19 +10,17 @@ import javax.persistence.*;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Review {
+public class Coupon {
 
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
     private Long id;
 
+    @Column(nullable = false)
+    private String code;
+
+    @Column(nullable = false)
+    private String name;
+
     @Embedded
-    private Content content;
-
-    @Column(nullable = false)
-    private Long productId;
-
-    @Column(nullable = false)
-    private Long authorId;
-
+    private Money discount;
 }

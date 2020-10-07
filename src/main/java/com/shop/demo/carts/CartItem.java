@@ -1,4 +1,4 @@
-package com.shop.demo.domain.carts;
+package com.shop.demo.carts;
 
 import com.shop.demo.common.ItemInfo;
 import lombok.*;

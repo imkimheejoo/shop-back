@@ -1,5 +1,6 @@
-package com.shop.demo.domain.coupons;
+package com.shop.demo.reviews;
 
+import com.shop.demo.common.Content;
 import lombok.*;
 
 import javax.persistence.*;
@@ -9,18 +10,19 @@ import javax.persistence.*;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class AccountCoupon {
+public class Review {
 
-    // TODO: 2020/10/07 대대적인 공사필요
     @Id
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = false)
-    private Long accountId;
+    @Embedded
+    private Content content;
 
     @Column(nullable = false)
-    private Long couponId;
+    private Long productId;
 
-    private boolean isUsed;
+    @Column(nullable = false)
+    private Long authorId;
+
 }

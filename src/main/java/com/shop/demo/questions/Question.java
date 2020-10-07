@@ -1,4 +1,4 @@
-package com.shop.demo.domain.questions;
+package com.shop.demo.questions;
 
 import com.shop.demo.common.Content;
 import lombok.*;

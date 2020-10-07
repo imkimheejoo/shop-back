@@ -1,4 +1,4 @@
-package com.shop.demo.domain.deliveries;
+package com.shop.demo.deliveries;
 
 import lombok.*;
 

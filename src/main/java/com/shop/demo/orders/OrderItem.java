@@ -1,4 +1,4 @@
-package com.shop.demo.domain.orders;
+package com.shop.demo.orders;
 
 import com.shop.demo.common.ItemInfo;
 import com.shop.demo.common.Money;

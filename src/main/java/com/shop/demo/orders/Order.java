@@ -1,9 +1,9 @@
-package com.shop.demo.domain.orders;
+package com.shop.demo.orders;
 
 
 import com.shop.demo.common.Money;
-import com.shop.demo.domain.coupons.AccountCoupon;
-import com.shop.demo.domain.deliveries.Delivery;
+import com.shop.demo.coupons.AccountCoupon;
+import com.shop.demo.deliveries.Delivery;
 import lombok.*;
 
 import javax.persistence.*;

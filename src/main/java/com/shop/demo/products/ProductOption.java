@@ -1,4 +1,4 @@
-package com.shop.demo.domain.coupons;
+package com.shop.demo.products;
 
 import com.shop.demo.common.Money;
 import lombok.*;
@@ -10,17 +10,17 @@ import javax.persistence.*;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Coupon {
+public class ProductOption {
 
     @Id @GeneratedValue
     private Long id;
 
     @Column(nullable = false)
-    private String code;
-
-    @Column(nullable = false)
-    private String name;
+    private String option;
 
     @Embedded
-    private Money discount;
+    private Money optionPrice;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private Product product;
 }

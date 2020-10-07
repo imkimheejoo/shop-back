@@ -1,6 +1,5 @@
-package com.shop.demo.domain.products;
+package com.shop.demo.questions;
 
-import com.shop.demo.common.Money;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,17 +9,14 @@ import javax.persistence.*;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ProductOption {
+public class Answer {
 
-    @Id @GeneratedValue
+    @Id  @GeneratedValue
     private Long id;
 
-    @Column(nullable = false)
-    private String option;
-
-    @Embedded
-    private Money optionPrice;
+    private String answer;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private Product product;
+    private Question question;
+
 }

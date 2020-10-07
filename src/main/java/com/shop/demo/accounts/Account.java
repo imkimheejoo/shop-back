@@ -1,4 +1,4 @@
-package com.shop.demo.domain.accounts;
+package com.shop.demo.accounts;
 
 import lombok.*;
 
