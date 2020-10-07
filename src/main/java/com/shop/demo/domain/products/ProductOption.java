@@ -1,5 +1,6 @@
 package com.shop.demo.domain.products;
 
+import com.shop.demo.domain.orders.Money;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,6 +17,9 @@ public class ProductOption {
 
     @Column(nullable = false)
     private String option;
+
+    @Embedded
+    private Money optionPrice;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Product product;

@@ -19,11 +19,11 @@ public class Order {
     @GeneratedValue
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Account orderer;
+    @Column(nullable = false)
+    private Long ordererId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Delivery delivery;
+    @Embedded
+    private ShippingInfo shippingInfo;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Coupon coupon;

@@ -1,9 +1,8 @@
 package com.shop.demo.domain.coupons;
 
-import com.shop.demo.domain.orders.Money;
 import lombok.*;
 
-import javax.persistence.Embedded;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,13 +12,15 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Coupon {
+public class AccountCoupon {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long id;
 
-    private String name;
+    @Column(nullable = false)
+    private Long accountId;
 
-    @Embedded
-    private Money discount;
+    @Column(nullable = false)
+    private Long couponId;
 }
