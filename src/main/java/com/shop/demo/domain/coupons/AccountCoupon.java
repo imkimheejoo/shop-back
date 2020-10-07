@@ -2,10 +2,7 @@ package com.shop.demo.domain.coupons;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -23,4 +20,6 @@ public class AccountCoupon {
 
     @Column(nullable = false)
     private Long couponId;
+
+    private boolean isUsed;
 }

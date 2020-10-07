@@ -1,6 +1,6 @@
 package com.shop.demo.domain.coupons;
 
-import com.shop.demo.domain.orders.Money;
+import com.shop.demo.common.Money;
 import lombok.*;
 
 import javax.persistence.Embedded;

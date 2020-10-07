@@ -17,10 +17,13 @@ public class Delivery {
     @Id
     @GeneratedValue
     private Long id;
+
     @Column(nullable = false)
     private String zipCode;
+
     @Column(nullable = false)
     private String address;
+
     @Column(nullable = false)
     private Long accountId;
 }
