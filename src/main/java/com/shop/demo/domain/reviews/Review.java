@@ -1,4 +1,4 @@
-package com.shop.demo.domain.questions;
+package com.shop.demo.domain.reviews;
 
 import com.shop.demo.common.Content;
 import lombok.*;
@@ -10,7 +10,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Question {
+public class Review {
 
     @Id
     @GeneratedValue
@@ -25,5 +25,4 @@ public class Question {
     @Column(nullable = false)
     private Long authorId;
 
-    private boolean isAnswered;
 }
