@@ -1,6 +1,6 @@
 package com.shop.demo.carts;
 
-import com.shop.demo.accounts.Account;
+import com.shop.demo.accounts.domain.Account;
 import lombok.*;
 
 import javax.persistence.*;
@@ -17,7 +17,7 @@ public class Cart {
     @Id @GeneratedValue
     private Long id;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cart")
     private List<CartItem> cartItems = new ArrayList<>();
 
     /**

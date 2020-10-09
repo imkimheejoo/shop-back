@@ -16,11 +16,11 @@ public class ProductOption {
     private Long id;
 
     @Column(nullable = false)
-    private String option;
+    private String optionName;
 
     @Embedded
     private Money optionPrice;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
 }
