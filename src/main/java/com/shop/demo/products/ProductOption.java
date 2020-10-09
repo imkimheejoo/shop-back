@@ -16,7 +16,7 @@ public class ProductOption {
     private Long id;
 
     @Column(nullable = false)
-    private String option;
+    private String optionName;
 
     @Embedded
     private Money optionPrice;
