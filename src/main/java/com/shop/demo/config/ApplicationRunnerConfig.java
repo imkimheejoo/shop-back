@@ -43,22 +43,20 @@ public class ApplicationRunnerConfig implements ApplicationRunner {
                     .price(new Money(10000))
                     .build();
 
-            Product savedProduct = productRepository.save(product);
 
-            ProductOption ivory = ProductOption.builder()
+            ProductOption.builder()
                     .optionName("ivory")
                     .optionPrice(new Money(0))
-                    .product(savedProduct)
+                    .product(product)
                     .build();
 
-            ProductOption black = ProductOption.builder()
+            ProductOption.builder()
                     .optionName("black")
                     .optionPrice(new Money(0))
-                    .product(savedProduct)
+                    .product(product)
                     .build();
 
-            productOptionRepository.save(ivory);
-            productOptionRepository.save(black);
+            productRepository.save(product);
         }
     }
 }

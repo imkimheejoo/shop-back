@@ -26,8 +26,8 @@ public class Product extends BaseTimeEntity {
     @Column(nullable = false)
     private String imageUrl;
 
-//    @OneToMany(mappedBy = "product")
-//    private List<ProductOption> options = new ArrayList<>();
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<ProductOption> options = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private Category category;

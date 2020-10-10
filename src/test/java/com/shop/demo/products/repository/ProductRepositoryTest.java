@@ -1,5 +1,6 @@
 package com.shop.demo.products.repository;
 
+import com.shop.demo.products.Product;
 import com.shop.demo.products.service.dto.ProductDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +22,12 @@ class ProductRepositoryTest {
     @Test
     void findAllWithSortLastDate() {
         PageRequest pageRequest = PageRequest.of(0, 12, Sort.by(Sort.Direction.DESC, "createdDate"));
-        List<ProductDto> productDtos = productRepository.findAllWithSortLastDate(pageRequest);
+        List<Product> productDtos = productRepository.findAllWithSortLastDate(pageRequest);
 
         System.out.println(productDtos.get(0).getId());
         System.out.println(productDtos.get(0).getTitle());
         System.out.println(productDtos.get(0).getPrice());
-        System.out.println(productDtos.get(0).getThumbnailUrl());
+        System.out.println(productDtos.get(0).getImageUrl());
         System.out.println(productDtos.get(0).getOptions());
-//        assertEquals(productDtos.get(0).getId(), );
     }
 }

@@ -30,6 +30,7 @@ public class ProductOption {
         this.optionName = optionName;
         this.optionPrice = optionPrice;
         this.product = product;
+        product.getOptions().add(this);
     }
 
 }
