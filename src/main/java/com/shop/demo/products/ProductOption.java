@@ -22,5 +22,14 @@ public class ProductOption {
     private Money optionPrice;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id", foreignKey = @ForeignKey)
     private Product product;
+
+    @Builder
+    public ProductOption(String optionName, Money optionPrice, Product product) {
+        this.optionName = optionName;
+        this.optionPrice = optionPrice;
+        this.product = product;
+    }
+
 }

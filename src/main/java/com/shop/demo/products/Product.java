@@ -1,5 +1,6 @@
 package com.shop.demo.products;
 
+import com.shop.demo.common.BaseTimeEntity;
 import com.shop.demo.common.Money;
 import lombok.*;
 
@@ -12,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Product {
+public class Product extends BaseTimeEntity {
 
     @Id @GeneratedValue
     private Long id;
@@ -25,8 +26,8 @@ public class Product {
     @Column(nullable = false)
     private String imageUrl;
 
-    @OneToMany(mappedBy = "product")
-    private List<ProductOption> options = new ArrayList<>();
+//    @OneToMany(mappedBy = "product")
+//    private List<ProductOption> options = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private Category category;
@@ -34,4 +35,12 @@ public class Product {
     @Embedded
     private Money price;
 
+    @Builder
+    public Product(String title, String description, String imageUrl, Category category, Money price) {
+        this.title = title;
+        this.description = description;
+        this.imageUrl = imageUrl;
+        this.category = category;
+        this.price = price;
+    }
 }
