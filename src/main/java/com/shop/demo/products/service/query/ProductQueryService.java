@@ -2,7 +2,6 @@ package com.shop.demo.products.service.query;
 
 import com.shop.demo.dto.query.OptionNameDto;
 import com.shop.demo.dto.query.ProductInfoDto;
-import com.shop.demo.dto.response.ProductInfoResponseDto;
 import com.shop.demo.products.repository.ProductOptionRepository;
 import com.shop.demo.products.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +22,7 @@ public class ProductQueryService {
     private final ProductOptionRepository productOptionRepository;
 
     @Transactional(readOnly = true)
-    public ProductInfoResponseDto getRecentProducts(Pageable pageable) {
+    public Page<ProductInfoDto> getRecentProducts(Pageable pageable) {
         Page<ProductInfoDto> products = productRepository.findProductsInfo(pageable);
         List<ProductInfoDto> content = products.getContent();
 
@@ -36,6 +35,6 @@ public class ProductQueryService {
 
         content.forEach(c -> c.setOptions(options.get(c.getId())));
 
-        return new ProductInfoResponseDto(products.getContent(), products.getPageable());
+        return products;
     }
 }
