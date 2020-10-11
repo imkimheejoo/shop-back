@@ -11,12 +11,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-
-    @Override
-    @EntityGraph(attributePaths = {"options"})
-    Page<Product> findAll(Pageable pageable);
 
     @Query(value = "select new com.shop.demo.dto.query.ProductInfoDto(p.id, p.title, p.price.money, p.imageUrl) " +
             "from Product p")
@@ -31,4 +29,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "from Product p " +
             "where p.title like %:keyword%")
     Page<ProductInfoDto> findProductsInfoInKeyword(@Param(("keyword")) String keyword, Pageable pageable);
+
+    @Override
+    @EntityGraph(attributePaths = {"options"})
+    Optional<Product> findById(Long productId);
+
 }

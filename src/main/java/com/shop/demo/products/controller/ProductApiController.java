@@ -4,6 +4,7 @@ import com.shop.demo.products.service.query.ProductQueryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +31,11 @@ public class ProductApiController {
     @GetMapping("/search/{keyword}")
     public ResponseEntity getProductsByKeyword(@PathVariable String keyword, @PageableDefault(size = 12, sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable) {
         return new ResponseEntity(productQueryService.getProductsContainsKeyword(keyword, pageable), HttpStatus.OK);
+    }
+
+    @GetMapping("/{productId}")
+    public ResponseEntity getProduct(@PathVariable Long productId) {
+        return new ResponseEntity(productQueryService.getProduct(productId), HttpStatus.OK);
     }
 
 }

@@ -40,6 +40,7 @@ public class ApplicationRunnerConfig implements ApplicationRunner {
                     .imageUrl("https://cdn.vuetifyjs.com/images/cards/sunshine.jpg")
                     .category(Category.상의)
                     .price(new Money(10000))
+                    .content("이상품은 어쩌구 저쩌구...")
                     .build();
 
 

@@ -1,5 +1,6 @@
 package com.shop.demo.dto.query;
 
+import com.shop.demo.products.Product;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -33,15 +34,4 @@ public class ProductInfoDto {
                 .collect(Collectors.toList());
     }
 }
-/**
- * {
- * "id": 1,
- * "title": "카테고리 상품1",
- * "price": "10000",
- * "options": [
- * "ivory",
- * "black"
- * ],
- * "thumbnailUrl": "https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
- * }
- */
+

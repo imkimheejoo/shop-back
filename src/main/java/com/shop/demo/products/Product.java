@@ -30,6 +30,8 @@ public class Product extends BaseTimeEntity {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductOption> options = new ArrayList<>();
 
+    private String content;
+
     @Enumerated(EnumType.STRING)
     private Category category;
 
@@ -37,10 +39,11 @@ public class Product extends BaseTimeEntity {
     private Money price;
 
     @Builder
-    public Product(String title, String description, String imageUrl, Category category, Money price) {
+    public Product(String title, String description, String imageUrl, String content, Category category, Money price) {
         this.title = title;
         this.description = description;
         this.imageUrl = imageUrl;
+        this.content = content;
         this.category = category;
         this.price = price;
     }
