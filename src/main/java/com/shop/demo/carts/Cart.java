@@ -4,8 +4,6 @@ import com.shop.demo.accounts.domain.Account;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -14,7 +12,8 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Cart {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long id;
 
 //    @OneToMany(mappedBy = "cart")

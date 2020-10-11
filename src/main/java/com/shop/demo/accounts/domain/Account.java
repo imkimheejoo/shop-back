@@ -2,7 +2,6 @@ package com.shop.demo.accounts.domain;
 
 import lombok.*;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 
