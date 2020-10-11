@@ -17,10 +17,27 @@ class ProductApiControllerTest extends MockMvcTemplate {
 
     @Test
     void 최근_상품들_조회() throws Exception {
-        mockMvc.perform(get(COMMON_URL + "/"))
+        mockMvc.perform(get(COMMON_URL))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath(".contents").exists())
-                .andExpect(jsonPath(".contents").isNotEmpty());
+                .andExpect(jsonPath(".content").exists())
+                .andExpect(jsonPath(".content").isNotEmpty());
+    }
+
+    @Test
+    void 카테고리별_상품_조회() throws Exception {
+        mockMvc.perform(get(COMMON_URL + "/category/top"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath(".content").exists())
+                .andExpect(jsonPath(".content").isNotEmpty());
+    }
+
+    @Test
+    void 카테고리별_상품_조회_실패_없는_카테고리() throws Exception {
+        mockMvc.perform(get(COMMON_URL +"/category/exception"))
+                .andDo(print())
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath(".message").value("잘못된 입력형식입니다."));
     }
 }

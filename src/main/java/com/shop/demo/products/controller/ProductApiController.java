@@ -7,10 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin("*")
 @RestController
@@ -23,5 +20,10 @@ public class ProductApiController {
     @GetMapping
     public ResponseEntity getRecentProducts(@PageableDefault(size = 12, sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable) {
         return new ResponseEntity(productQueryService.getRecentProducts(pageable), HttpStatus.OK);
+    }
+
+    @GetMapping("/category/{category}")
+    public ResponseEntity getProductsByCategory(@PathVariable String category, @PageableDefault(size = 12, sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable) {
+        return new ResponseEntity(productQueryService.getProductsByCategory(category, pageable), HttpStatus.OK);
     }
 }

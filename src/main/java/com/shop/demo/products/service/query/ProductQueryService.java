@@ -2,6 +2,7 @@ package com.shop.demo.products.service.query;
 
 import com.shop.demo.dto.query.OptionNameDto;
 import com.shop.demo.dto.query.ProductInfoDto;
+import com.shop.demo.products.Category;
 import com.shop.demo.products.repository.ProductOptionRepository;
 import com.shop.demo.products.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,21 @@ public class ProductQueryService {
     @Transactional(readOnly = true)
     public Page<ProductInfoDto> getRecentProducts(Pageable pageable) {
         Page<ProductInfoDto> products = productRepository.findProductsInfo(pageable);
+        getProductOptions(products);
+
+        return products;
+    }
+
+    public Object getProductsByCategory(String categoryName, Pageable pageable) {
+        Category category = Category.getCategoryByName(categoryName);
+
+        Page<ProductInfoDto> products = productRepository.findProductsInfoByCategory(category, pageable);
+        getProductOptions(products);
+
+        return products;
+    }
+
+    private void getProductOptions(Page<ProductInfoDto> products) {
         List<ProductInfoDto> content = products.getContent();
 
         List<Long> productIds = content.stream()
@@ -34,7 +50,5 @@ public class ProductQueryService {
                 .collect(Collectors.groupingBy(OptionNameDto::getProductId));
 
         content.forEach(c -> c.setOptions(options.get(c.getId())));
-
-        return products;
     }
 }
