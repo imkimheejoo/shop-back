@@ -1,0 +1,41 @@
+package com.shop.demo.products.service.query;
+
+import com.shop.demo.dto.query.OptionNameDto;
+import com.shop.demo.dto.query.ProductInfoDto;
+import com.shop.demo.dto.response.ProductInfoResponseDto;
+import com.shop.demo.products.repository.ProductOptionRepository;
+import com.shop.demo.products.repository.ProductRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+@Service
+@RequiredArgsConstructor
+public class ProductQueryService {
+
+    private final ProductRepository productRepository;
+    private final ProductOptionRepository productOptionRepository;
+
+    @Transactional(readOnly = true)
+    public ProductInfoResponseDto getRecentProducts(Pageable pageable) {
+        Page<ProductInfoDto> products = productRepository.findProductsInfo(pageable);
+        List<ProductInfoDto> content = products.getContent();
+
+        List<Long> productIds = content.stream()
+                .map(ProductInfoDto::getId)
+                .collect(Collectors.toList());
+
+        Map<Long, List<OptionNameDto>> options = productOptionRepository.findOptionNameInProducts(productIds).stream()
+                .collect(Collectors.groupingBy(OptionNameDto::getProductId));
+
+        content.forEach(c -> c.setOptions(options.get(c.getId())));
+
+        return new ProductInfoResponseDto(products.getContent(), products.getPageable());
+    }
+}
