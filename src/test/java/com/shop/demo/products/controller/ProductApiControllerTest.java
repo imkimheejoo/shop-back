@@ -1,6 +1,7 @@
 package com.shop.demo.products.controller;
 
 import com.shop.demo.MockMvcTemplate;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -35,9 +36,27 @@ class ProductApiControllerTest extends MockMvcTemplate {
 
     @Test
     void 카테고리별_상품_조회_실패_없는_카테고리() throws Exception {
-        mockMvc.perform(get(COMMON_URL +"/category/exception"))
+        mockMvc.perform(get(COMMON_URL + "/category/exception"))
                 .andDo(print())
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath(".message").value("잘못된 입력형식입니다."));
+    }
+
+    @Test
+    void 상품_검색_한건이상() throws Exception {
+        mockMvc.perform(get(COMMON_URL + "/search/상품"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath(".content").exists())
+                .andExpect(jsonPath(".content").isNotEmpty());
+    }
+
+    @Test
+    void 상품_검색_없는_싱품() throws Exception {
+        mockMvc.perform(get(COMMON_URL + "/search/아무키워드"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath(".content").exists())
+                .andExpect(jsonPath(".content.size()").value(0));
     }
 }

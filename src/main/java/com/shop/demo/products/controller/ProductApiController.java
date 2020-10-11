@@ -26,4 +26,10 @@ public class ProductApiController {
     public ResponseEntity getProductsByCategory(@PathVariable String category, @PageableDefault(size = 12, sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable) {
         return new ResponseEntity(productQueryService.getProductsByCategory(category, pageable), HttpStatus.OK);
     }
+
+    @GetMapping("/search/{keyword}")
+    public ResponseEntity getProductsByKeyword(@PathVariable String keyword, @PageableDefault(size = 12, sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable) {
+        return new ResponseEntity(productQueryService.getProductsContainsKeyword(keyword, pageable), HttpStatus.OK);
+    }
+
 }

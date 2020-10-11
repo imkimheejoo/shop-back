@@ -30,10 +30,18 @@ public class ProductQueryService {
         return products;
     }
 
-    public Object getProductsByCategory(String categoryName, Pageable pageable) {
+    public Page<ProductInfoDto> getProductsByCategory(String categoryName, Pageable pageable) {
         Category category = Category.getCategoryByName(categoryName);
 
         Page<ProductInfoDto> products = productRepository.findProductsInfoByCategory(category, pageable);
+        getProductOptions(products);
+
+        return products;
+    }
+
+    public Page<ProductInfoDto> getProductsContainsKeyword(String keyword, Pageable pageable) {
+        Page<ProductInfoDto> products = productRepository.findProductsInfoInKeyword(keyword, pageable);
+
         getProductOptions(products);
 
         return products;

@@ -26,4 +26,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "from Product p " +
             "where p.category = :category")
     Page<ProductInfoDto> findProductsInfoByCategory(@Param("category") Category category, Pageable pageable);
+
+    @Query(value = "select new com.shop.demo.dto.query.ProductInfoDto(p.id, p.title, p.price.money, p.imageUrl) " +
+            "from Product p " +
+            "where p.title like %:keyword%")
+    Page<ProductInfoDto> findProductsInfoInKeyword(@Param(("keyword")) String keyword, Pageable pageable);
 }
