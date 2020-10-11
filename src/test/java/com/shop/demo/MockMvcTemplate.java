@@ -23,7 +23,7 @@ public abstract class MockMvcTemplate {
     @BeforeEach
     void initMockMvc(WebApplicationContext webApplicationContext) {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
-                .addFilter(new CharacterEncodingFilter(StandardCharsets.UTF_8.toString(), true))
+                .addFilters(new CharacterEncodingFilter("UTF-8", true))
                 .apply(springSecurity())
                 .build();
     }
