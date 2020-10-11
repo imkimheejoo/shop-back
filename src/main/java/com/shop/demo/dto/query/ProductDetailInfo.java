@@ -18,6 +18,17 @@ public class ProductDetailInfo {
     private String thumbnailUrl;
     private String content;
 
+    @Builder
+    public ProductDetailInfo(Long id, String title, String description, long price, List<OptionInfo> options, String thumbnailUrl, String content) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.price = price;
+        this.options = options;
+        this.thumbnailUrl = thumbnailUrl;
+        this.content = content;
+    }
+
     public static ProductDetailInfo toDto(Product product) {
         return ProductDetailInfo.builder()
                 .id(product.getId())
@@ -30,16 +41,5 @@ public class ProductDetailInfo {
                 .thumbnailUrl(product.getImageUrl())
                 .content(product.getContent())
                 .build();
-    }
-
-    @Builder
-    public ProductDetailInfo(Long id, String title, String description, long price, List<OptionInfo> options, String thumbnailUrl, String content) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
-        this.price = price;
-        this.options = options;
-        this.thumbnailUrl = thumbnailUrl;
-        this.content = content;
     }
 }

@@ -9,7 +9,6 @@ import com.shop.demo.products.Category;
 import com.shop.demo.products.Product;
 import com.shop.demo.products.repository.ProductOptionRepository;
 import com.shop.demo.products.repository.ProductRepository;
-import javassist.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

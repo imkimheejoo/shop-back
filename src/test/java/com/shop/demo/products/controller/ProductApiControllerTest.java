@@ -1,7 +1,6 @@
 package com.shop.demo.products.controller;
 
 import com.shop.demo.MockMvcTemplate;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -62,7 +61,7 @@ class ProductApiControllerTest extends MockMvcTemplate {
 
     @Test
     void 상품_조회_성공() throws Exception {
-        mockMvc.perform(get(COMMON_URL +"/2"))
+        mockMvc.perform(get(COMMON_URL + "/2"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath(".content").exists())
@@ -71,7 +70,7 @@ class ProductApiControllerTest extends MockMvcTemplate {
 
     @Test
     void 상품_조회_실패_없는상품() throws Exception {
-        mockMvc.perform(get(COMMON_URL +"/1"))
+        mockMvc.perform(get(COMMON_URL + "/1"))
                 .andDo(print())
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath(".message").value("엔티티를 찾을 수 없습니다."));
