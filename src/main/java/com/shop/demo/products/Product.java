@@ -3,6 +3,7 @@ package com.shop.demo.products;
 import com.shop.demo.common.BaseTimeEntity;
 import com.shop.demo.common.Money;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
 import java.util.ArrayList;

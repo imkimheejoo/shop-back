@@ -19,7 +19,8 @@ public class ProductApiController {
 
     @GetMapping
     public ResponseEntity getRecentProducts(@PageableDefault(size = 12, sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable) {
-        return new ResponseEntity(productQueryService.getRecentProducts(pageable), HttpStatus.OK);
+//        return new ResponseEntity(productQueryService.getRecentProducts(pageable), HttpStatus.OK);
+        return new ResponseEntity(productQueryService.getRecentProducts2(pageable), HttpStatus.OK);
     }
 
     @GetMapping("/category/{category}")

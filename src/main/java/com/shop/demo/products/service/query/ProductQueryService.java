@@ -28,11 +28,22 @@ public class ProductQueryService {
     private final ProductOptionRepository productOptionRepository;
 
 
+    // 방법 1 DTO로 조회하고 반환
     public Page<ProductInfoDto> getRecentProducts(Pageable pageable) {
+        // 쿼리 2번
         Page<ProductInfoDto> products = productRepository.findProductsInfo(pageable);
         getProductOptions(products);
 
         return products;
+    }
+
+    // 방법 2 엔티티로 조회하고 DTO로 변환 -> oneTomany는 페이징 안됨
+    public Page<ProductInfoDto> getRecentProducts2(Pageable pageable) {
+        // 쿼리 1번
+        Page<Product> products = productRepository.findProductsInfo2(pageable);
+
+        // 쿼리 2번 (in 절)
+       return products.map(ProductInfoDto::toDto);
     }
 
     public Page<ProductInfoDto> getProductsByCategory(String categoryName, Pageable pageable) {
