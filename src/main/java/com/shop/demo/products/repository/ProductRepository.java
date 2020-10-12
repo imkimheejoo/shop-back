@@ -23,10 +23,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     Page<Product> findByCategory(@Param("category") Category category, Pageable pageable);
 
-    @Query(value = "select new com.shop.demo.dto.query.ProductInfoDto(p.id, p.title, p.price.money, p.imageUrl) " +
+    @Query(value = "select p " +
             "from Product p " +
             "where p.title like %:keyword%")
-    Page<ProductInfoDto> findProductsInfoInKeyword(@Param(("keyword")) String keyword, Pageable pageable);
+    Page<Product> findProductsInfoInKeyword(@Param(("keyword")) String keyword, Pageable pageable);
 
     @Override
     @EntityGraph(attributePaths = {"options"})

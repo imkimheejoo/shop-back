@@ -31,10 +31,24 @@ public class ProductQueryService {
     // 방법 1 DTO로 조회하고 반환
     public Page<ProductInfoDto> getRecentProductsV1(Pageable pageable) {
         // 쿼리 2번
-        Page<ProductInfoDto> products = productRepository.findProductsInfo(pageable);
+        Page<ProductInfoDto> products = productRepository.findProductsInfo(pageable);   // 1번째 쿼리
         getProductOptions(products);
 
         return products;
+    }
+
+    private void getProductOptions(Page<ProductInfoDto> products) {
+        List<ProductInfoDto> content = products.getContent();
+
+        List<Long> productIds = content.stream()
+                .map(ProductInfoDto::getId)
+                .collect(Collectors.toList());
+
+        // 2번째 쿼리
+        Map<Long, List<OptionNameDto>> options = productOptionRepository.findOptionNameInProducts(productIds).stream()
+                .collect(Collectors.groupingBy(OptionNameDto::getProductId));
+
+        content.forEach(c -> c.setOptions(options.get(c.getId())));
     }
 
     // 방법 2 엔티티로 조회하고 DTO로 변환 -> oneTomany는 페이징 안됨(MultiBegException)
@@ -55,24 +69,9 @@ public class ProductQueryService {
     }
 
     public Page<ProductInfoDto> getProductsContainsKeyword(String keyword, Pageable pageable) {
-        Page<ProductInfoDto> products = productRepository.findProductsInfoInKeyword(keyword, pageable);
+        Page<Product> products = productRepository.findProductsInfoInKeyword(keyword, pageable);
 
-        getProductOptions(products);
-
-        return products;
-    }
-
-    private void getProductOptions(Page<ProductInfoDto> products) {
-        List<ProductInfoDto> content = products.getContent();
-
-        List<Long> productIds = content.stream()
-                .map(ProductInfoDto::getId)
-                .collect(Collectors.toList());
-
-        Map<Long, List<OptionNameDto>> options = productOptionRepository.findOptionNameInProducts(productIds).stream()
-                .collect(Collectors.groupingBy(OptionNameDto::getProductId));
-
-        content.forEach(c -> c.setOptions(options.get(c.getId())));
+        return products.map(ProductInfoDto::toDto);
     }
 
     public ProductDetailInfo getProduct(Long productId) {
