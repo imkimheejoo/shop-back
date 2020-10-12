@@ -29,7 +29,7 @@ public class ProductQueryService {
 
 
     // 방법 1 DTO로 조회하고 반환
-    public Page<ProductInfoDto> getRecentProducts(Pageable pageable) {
+    public Page<ProductInfoDto> getRecentProductsV1(Pageable pageable) {
         // 쿼리 2번
         Page<ProductInfoDto> products = productRepository.findProductsInfo(pageable);
         getProductOptions(products);
@@ -37,8 +37,8 @@ public class ProductQueryService {
         return products;
     }
 
-    // 방법 2 엔티티로 조회하고 DTO로 변환 -> oneTomany는 페이징 안됨
-    public Page<ProductInfoDto> getRecentProducts2(Pageable pageable) {
+    // 방법 2 엔티티로 조회하고 DTO로 변환 -> oneTomany는 페이징 안됨(MultiBegException)
+    public Page<ProductInfoDto> getRecentProducts(Pageable pageable) {
         // 쿼리 1번
         Page<Product> products = productRepository.findProductsInfo2(pageable);
 
@@ -49,10 +49,9 @@ public class ProductQueryService {
     public Page<ProductInfoDto> getProductsByCategory(String categoryName, Pageable pageable) {
         Category category = Category.getCategoryByName(categoryName);
 
-        Page<ProductInfoDto> products = productRepository.findProductsInfoByCategory(category, pageable);
-        getProductOptions(products);
+        Page<Product> products = productRepository.findByCategory(category, pageable);
 
-        return products;
+        return products.map(ProductInfoDto::toDto);
     }
 
     public Page<ProductInfoDto> getProductsContainsKeyword(String keyword, Pageable pageable) {
