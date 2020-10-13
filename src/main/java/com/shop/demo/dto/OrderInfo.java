@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Getter
@@ -14,15 +14,15 @@ import java.util.List;
 @AllArgsConstructor
 public class OrderInfo {
 
-    @NotEmpty
+    @NotNull
     private List<ItemInfo> orderProducts;
 
-    @NotEmpty
+    @NotNull
     private Long deliveryId;
 
     private Long couponId;
 
-    @NotEmpty
+    @NotNull
     private Money totalPrice;
 
 }

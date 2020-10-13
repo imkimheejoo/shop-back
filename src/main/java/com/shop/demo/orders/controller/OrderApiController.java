@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/orders")
 @RequiredArgsConstructor
@@ -18,7 +20,7 @@ public class OrderApiController {
     private final OrderService orderService;
 
     @PostMapping
-    public ResponseEntity order(@RequestBody OrderInfo orderInfo) {
+    public ResponseEntity order(@RequestBody @Valid OrderInfo orderInfo) {
         return new ResponseEntity(new OrderId(orderService.saveOrderProduct(orderInfo, 1L)), HttpStatus.OK);
     }
 }

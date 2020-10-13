@@ -7,7 +7,7 @@ import com.shop.demo.deliveries.Delivery;
 import com.shop.demo.deliveries.repository.DeliveryRepository;
 import com.shop.demo.dto.OrderInfo;
 import com.shop.demo.error.ErrorCode;
-import com.shop.demo.error.InvalidOrderException;
+import com.shop.demo.error.exception.InvalidOrderException;
 import com.shop.demo.error.exception.NotFoundDataException;
 import com.shop.demo.orders.Order;
 import com.shop.demo.orders.OrderItem;

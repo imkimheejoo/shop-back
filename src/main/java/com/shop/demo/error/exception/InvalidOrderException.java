@@ -1,5 +1,6 @@
-package com.shop.demo.error;
+package com.shop.demo.error.exception;
 
+import com.shop.demo.error.ErrorCode;
 import com.shop.demo.error.exception.ServiceException;
 import lombok.Getter;
 

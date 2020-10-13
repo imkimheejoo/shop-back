@@ -3,7 +3,7 @@ package com.shop.demo.coupons;
 import com.shop.demo.common.ItemInfo;
 import com.shop.demo.common.Money;
 import com.shop.demo.error.ErrorCode;
-import com.shop.demo.error.NotMatchOrderPrice;
+import com.shop.demo.error.exception.NotMatchOrderPrice;
 import com.shop.demo.error.exception.AlreadyUsedCouponException;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;

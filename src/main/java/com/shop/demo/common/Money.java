@@ -1,5 +1,7 @@
 package com.shop.demo.common;
 
+import com.shop.demo.error.ErrorCode;
+import com.shop.demo.error.exception.InvalidPriceException;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -16,14 +18,14 @@ public class Money {
     private long money;
 
     public Money(long money) {
-        this.money = money;
-
-        if (this.money < 0) {
-            this.money = 0L;
+        if (money < 0) {
+            throw new InvalidPriceException(ErrorCode.INVALID_TYPE_VALUE);
         }
+
+        this.money = money;
     }
 
     public Money discount(Money discount) {
-        return new Money(money - discount.money);
+        return new Money(this.money - discount.money < 0 ? 0 : this.money - discount.money);
     }
 }
