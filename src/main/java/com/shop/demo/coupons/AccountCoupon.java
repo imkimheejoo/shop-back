@@ -2,10 +2,7 @@ package com.shop.demo.coupons;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -22,8 +19,9 @@ public class AccountCoupon {
     @Column(nullable = false)
     private Long accountId;
 
-    @Column(nullable = false)
-    private Long couponId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "coupon_id", foreignKey = @ForeignKey)
+    private Coupon coupon;
 
     private boolean isUsed;
 }

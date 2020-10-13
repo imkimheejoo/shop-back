@@ -5,6 +5,7 @@ import com.shop.demo.common.Money;
 import com.shop.demo.coupons.AccountCoupon;
 import com.shop.demo.deliveries.Delivery;
 import lombok.*;
+import sun.rmi.runtime.Log;
 
 import javax.persistence.*;
 
@@ -33,15 +34,10 @@ public class Order {
      * 주문끝나고 배송지 바꾸고 주문취소하면 어쩌지..
      * 너무 오버엔지니어링인가..?
      */
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
     private Delivery delivery;
 
-    /**
-     * todo
-     * 일단 할말은 많지만 Pass...
-     */
-    @OneToOne(fetch = FetchType.EAGER)
-    private AccountCoupon coupon;
+    private Long couponId;
 
     @Embedded
     private Money price;
@@ -51,4 +47,26 @@ public class Order {
 
     @Enumerated(EnumType.STRING)
     private ShippingStatus shippingStatus;
+
+    public static Order order(Long ordererId, Delivery delivery, Long couponId, Money totalPrice) {
+        return Order.builder()
+                .ordererId(ordererId)
+                .delivery(delivery)
+                .couponId(couponId)
+                .price(totalPrice)
+                .shippingStatus(ShippingStatus.배송전)
+                .orderStatus(OrderStatus.입금완료)
+                .build();
+    }
+
+    @Builder
+    public Order(Long ordererId, Delivery delivery, Long couponId, Money price, OrderStatus orderStatus, ShippingStatus shippingStatus) {
+        this.ordererId = ordererId;
+        this.delivery = delivery;
+        this.couponId = couponId;
+        this.price = price;
+        this.orderStatus = orderStatus;
+        this.shippingStatus = shippingStatus;
+    }
+
 }
