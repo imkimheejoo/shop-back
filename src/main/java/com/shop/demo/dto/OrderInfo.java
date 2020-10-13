@@ -1,6 +1,7 @@
 package com.shop.demo.dto;
 
 import com.shop.demo.common.ItemInfo;
+import com.shop.demo.common.Money;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,6 @@ public class OrderInfo {
     private Long couponId;
 
     @NotEmpty
-    private Long totalPrice;
+    private Money totalPrice;
 
 }

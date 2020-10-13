@@ -7,6 +7,7 @@ import com.shop.demo.deliveries.Delivery;
 import com.shop.demo.deliveries.repository.DeliveryRepository;
 import com.shop.demo.dto.OrderInfo;
 import com.shop.demo.error.ErrorCode;
+import com.shop.demo.error.InvalidOrderException;
 import com.shop.demo.error.exception.NotFoundDataException;
 import com.shop.demo.orders.Order;
 import com.shop.demo.orders.OrderItem;
@@ -30,21 +31,13 @@ public class OrderService {
     private final AccountCouponRepository accountCouponRepository;
 
     public Long saveOrderProduct(OrderInfo orderInfo, Long ordererId) {
+        checkValidOrder(orderInfo);
+
         Delivery delivery = deliveryRepository.findById(orderInfo.getDeliveryId())
                 .orElseThrow(() -> new NotFoundDataException(ErrorCode.NOT_FOUND));
 
-
-        Long couponId = orderInfo.getCouponId();
-        if(couponId != null) {
-            AccountCoupon coupon = accountCouponRepository.findById(couponId)
-                    .orElseThrow(() -> new NotFoundDataException(ErrorCode.NOT_FOUND));
-
-            // TODO: 2020/10/13  할인된 금액이 맞는지 확인해야함
-            // 가격 확인 -> 사용자가 결제 누른 그 시간의 가격으로 저장 따라서 가격 비교할 필요 없음
-        }
-
-        Money totalPrice = new Money(orderInfo.getTotalPrice());
-        Order order = Order.order(ordererId, delivery, couponId, totalPrice);
+        Money totalPrice = orderInfo.getTotalPrice();
+        Order order = Order.order(ordererId, delivery, orderInfo.getCouponId(), totalPrice);
 
         List<OrderItem> orderItems = orderInfo.getOrderProducts().stream()
                 .map(op -> new OrderItem(order, op))
@@ -52,5 +45,23 @@ public class OrderService {
         orderItemRepository.saveAll(orderItems);
 
         return order.getId();
+    }
+
+    private void checkValidOrder(OrderInfo orderInfo) {
+        Long couponId = orderInfo.getCouponId();
+        if(couponId != null) {
+            AccountCoupon coupon = accountCouponRepository.findByIdWithCoupons(couponId)
+                    .orElseThrow(() -> new NotFoundDataException(ErrorCode.NOT_FOUND));
+
+            coupon.validate(orderInfo.getOrderProducts(), orderInfo.getTotalPrice());
+        } else {
+            Money origin = new Money(orderInfo.getOrderProducts().stream()
+                    .mapToLong(op -> op.getPrice().getMoney())
+                    .sum());
+
+            if(!origin.equals(orderInfo.getTotalPrice())) {
+                throw new InvalidOrderException(ErrorCode.INVALID_ORDER);
+            }
+        }
     }
 }

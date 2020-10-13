@@ -1,12 +1,18 @@
 package com.shop.demo.coupons;
 
+import com.shop.demo.common.ItemInfo;
+import com.shop.demo.common.Money;
+import com.shop.demo.error.ErrorCode;
+import com.shop.demo.error.NotMatchOrderPrice;
+import com.shop.demo.error.exception.AlreadyUsedCouponException;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 @Entity
 @Getter
-@AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class AccountCoupon {
@@ -24,4 +30,23 @@ public class AccountCoupon {
     private Coupon coupon;
 
     private boolean isUsed;
+
+    public AccountCoupon(Long accountId, Coupon coupon, boolean isUsed) {
+        this.accountId = accountId;
+        this.coupon = coupon;
+        this.isUsed = isUsed;
+    }
+
+    public void validate(List<ItemInfo> orderProducts, Money totalPrice) {
+        if(isUsed) {
+            throw new AlreadyUsedCouponException(ErrorCode.ALREADY_USED_COUPON);
+        }
+
+        Money originPrice = new Money(orderProducts.stream()
+                .mapToLong(op -> op.getPrice().getMoney()).sum());
+        Money calculatedPrice = coupon.applyDiscount(originPrice);
+        if (!calculatedPrice.equals(totalPrice)) {
+            throw new NotMatchOrderPrice(ErrorCode.INVALID_COUPON);
+        }
+    }
 }

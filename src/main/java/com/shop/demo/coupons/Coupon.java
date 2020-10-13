@@ -7,7 +7,6 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Coupon {
@@ -24,4 +23,14 @@ public class Coupon {
 
     @Embedded
     private Money discount;
+
+    public Coupon(String code, String name, Money discount) {
+        this.code = code;
+        this.name = name;
+        this.discount = discount;
+    }
+
+    public Money applyDiscount(Money price) {
+        return price.discount(discount);
+    }
 }

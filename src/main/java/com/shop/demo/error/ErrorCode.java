@@ -11,7 +11,15 @@ public enum ErrorCode {
     NOT_FOUND(HttpStatus.NOT_FOUND, "C-004", "엔티티를 찾을 수 없습니다."),
     ACCESS_DENIED(HttpStatus.FORBIDDEN, "C-005", "권한이 없습니다."),
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "C-006", "예기치 못한 문제가 발생했습니다. 다시한번 시도해주세요." +
-            "\n계속 작동이 안된다면 문의바랍니다.");
+            "\n계속 작동이 안된다면 문의바랍니다."),
+
+    // coupon
+    ALREADY_USED_COUPON(HttpStatus.BAD_REQUEST, "CU-001", "이미 사용된 쿠폰입니다."),
+    INVALID_COUPON(HttpStatus.BAD_REQUEST, "CU-002", "유효하지 않은 쿠폰입니다."),
+
+    //order
+    INVALID_ORDER(HttpStatus.BAD_REQUEST, "O-001", "잘못된 주문입니다.");
+
 
     private HttpStatus status;
     private String code;
@@ -22,4 +30,5 @@ public enum ErrorCode {
         this.code = code;
         this.message = message;
     }
+
 }

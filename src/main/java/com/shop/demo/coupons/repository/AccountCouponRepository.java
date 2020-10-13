@@ -9,7 +9,6 @@ import java.util.Optional;
 
 public interface AccountCouponRepository extends JpaRepository<AccountCoupon, Long> {
 
-    @Override
-    @Query("select ac from AccountCoupon ac join fetch ac.coupon")
-    Optional<AccountCoupon> findById(@Param("id") Long id);
+    @Query("select ac from AccountCoupon ac join fetch ac.coupon where ac.id = :id")
+    Optional<AccountCoupon> findByIdWithCoupons(@Param("id") Long id);
 }

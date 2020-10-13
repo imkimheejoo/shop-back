@@ -5,6 +5,10 @@ import com.shop.demo.accounts.domain.AccountRole;
 import com.shop.demo.accounts.dto.SignUpRequestDto;
 import com.shop.demo.accounts.service.command.AccountService;
 import com.shop.demo.common.Money;
+import com.shop.demo.coupons.AccountCoupon;
+import com.shop.demo.coupons.Coupon;
+import com.shop.demo.coupons.repository.AccountCouponRepository;
+import com.shop.demo.coupons.repository.CouponRepository;
 import com.shop.demo.deliveries.Delivery;
 import com.shop.demo.deliveries.repository.DeliveryRepository;
 import com.shop.demo.products.Category;
@@ -24,12 +28,18 @@ public class ApplicationRunnerConfig implements ApplicationRunner {
     private final AccountService accountService;
     private final ProductRepository productRepository;
     private final DeliveryRepository deliveryRepository;
+    private final CouponRepository couponRepository;
+    private final AccountCouponRepository accountCouponRepository;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
         SignUpRequestDto signUpRequestDto = new SignUpRequestDto("email@email.com", "password", "김이름");
         Account account = accountService.register(signUpRequestDto, AccountRole.CUSTOMER);
         Delivery delivery = deliveryRepository.save(new Delivery("12345", "서울특별시 강남구 신비아파트 1동 2호", account.getId()));
+
+        Coupon coupon = couponRepository.save(new Coupon("12345-12", "2500원할인", new Money(2500)));
+        accountCouponRepository.save(new AccountCoupon(account.getId(), coupon, false));
+        accountCouponRepository.save(new AccountCoupon(account.getId(), coupon, true));
 
         saveProducts();
 
