@@ -5,10 +5,12 @@ import com.shop.demo.common.Money;
 import com.shop.demo.error.ErrorCode;
 import com.shop.demo.error.NotMatchOrderPrice;
 import com.shop.demo.error.exception.AlreadyUsedCouponException;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Entity
@@ -38,7 +40,7 @@ public class AccountCoupon {
     }
 
     public void validate(List<ItemInfo> orderProducts, Money totalPrice) {
-        if(isUsed) {
+        if (isUsed) {
             throw new AlreadyUsedCouponException(ErrorCode.ALREADY_USED_COUPON);
         }
 

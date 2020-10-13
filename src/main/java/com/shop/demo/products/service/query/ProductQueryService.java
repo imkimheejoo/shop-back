@@ -57,7 +57,7 @@ public class ProductQueryService {
         Page<Product> products = productRepository.findProductsInfo2(pageable);
 
         // 쿼리 2번 (in 절)
-       return products.map(ProductInfoDto::toDto);
+        return products.map(ProductInfoDto::toDto);
     }
 
     public Page<ProductInfoDto> getProductsByCategory(String categoryName, Pageable pageable) {

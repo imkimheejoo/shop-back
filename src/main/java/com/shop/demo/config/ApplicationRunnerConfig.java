@@ -14,7 +14,6 @@ import com.shop.demo.deliveries.repository.DeliveryRepository;
 import com.shop.demo.products.Category;
 import com.shop.demo.products.Product;
 import com.shop.demo.products.ProductOption;
-import com.shop.demo.products.repository.ProductOptionRepository;
 import com.shop.demo.products.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;

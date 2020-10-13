@@ -2,7 +2,6 @@ package com.shop.demo.dto.query;
 
 import com.shop.demo.products.Product;
 import com.shop.demo.products.ProductOption;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,7 +27,7 @@ public class ProductInfoDto {
         this.thumbnailUrl = thumbnailUrl;
     }
 
-//    @Builder(builderMethodName = "builder2")
+    //    @Builder(builderMethodName = "builder2")
     public ProductInfoDto(Long id, String title, long price, List<String> options, String thumbnailUrl) {
         this.id = id;
         this.title = title;

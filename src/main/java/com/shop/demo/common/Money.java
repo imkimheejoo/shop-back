@@ -1,6 +1,9 @@
 package com.shop.demo.common;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
 
@@ -15,7 +18,7 @@ public class Money {
     public Money(long money) {
         this.money = money;
 
-        if(this.money < 0) {
+        if (this.money < 0) {
             this.money = 0L;
         }
     }

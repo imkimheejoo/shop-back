@@ -1,8 +1,10 @@
 package com.shop.demo.orders;
 
 import com.shop.demo.common.ItemInfo;
-import com.shop.demo.common.Money;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 

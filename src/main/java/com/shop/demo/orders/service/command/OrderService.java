@@ -49,7 +49,7 @@ public class OrderService {
 
     private void checkValidOrder(OrderInfo orderInfo) {
         Long couponId = orderInfo.getCouponId();
-        if(couponId != null) {
+        if (couponId != null) {
             AccountCoupon coupon = accountCouponRepository.findByIdWithCoupons(couponId)
                     .orElseThrow(() -> new NotFoundDataException(ErrorCode.NOT_FOUND));
 
@@ -59,7 +59,7 @@ public class OrderService {
                     .mapToLong(op -> op.getPrice().getMoney())
                     .sum());
 
-            if(!origin.equals(orderInfo.getTotalPrice())) {
+            if (!origin.equals(orderInfo.getTotalPrice())) {
                 throw new InvalidOrderException(ErrorCode.INVALID_ORDER);
             }
         }

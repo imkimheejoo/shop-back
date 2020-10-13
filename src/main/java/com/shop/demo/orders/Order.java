@@ -2,10 +2,8 @@ package com.shop.demo.orders;
 
 
 import com.shop.demo.common.Money;
-import com.shop.demo.coupons.AccountCoupon;
 import com.shop.demo.deliveries.Delivery;
 import lombok.*;
-import sun.rmi.runtime.Log;
 
 import javax.persistence.*;
 
@@ -48,6 +46,16 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private ShippingStatus shippingStatus;
 
+    @Builder
+    public Order(Long ordererId, Delivery delivery, Long couponId, Money price, OrderStatus orderStatus, ShippingStatus shippingStatus) {
+        this.ordererId = ordererId;
+        this.delivery = delivery;
+        this.couponId = couponId;
+        this.price = price;
+        this.orderStatus = orderStatus;
+        this.shippingStatus = shippingStatus;
+    }
+
     public static Order order(Long ordererId, Delivery delivery, Long couponId, Money totalPrice) {
         return Order.builder()
                 .ordererId(ordererId)
@@ -57,16 +65,6 @@ public class Order {
                 .shippingStatus(ShippingStatus.배송전)
                 .orderStatus(OrderStatus.입금완료)
                 .build();
-    }
-
-    @Builder
-    public Order(Long ordererId, Delivery delivery, Long couponId, Money price, OrderStatus orderStatus, ShippingStatus shippingStatus) {
-        this.ordererId = ordererId;
-        this.delivery = delivery;
-        this.couponId = couponId;
-        this.price = price;
-        this.orderStatus = orderStatus;
-        this.shippingStatus = shippingStatus;
     }
 
 }
