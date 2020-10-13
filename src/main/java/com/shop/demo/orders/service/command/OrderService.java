@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -45,11 +46,10 @@ public class OrderService {
         Money totalPrice = new Money(orderInfo.getTotalPrice());
         Order order = Order.order(ordererId, delivery, couponId, totalPrice);
 
-        // TODO: 2020/10/13 쿼리가 N번 나감
-        orderInfo.getOrderProducts().stream()
+        List<OrderItem> orderItems = orderInfo.getOrderProducts().stream()
                 .map(op -> new OrderItem(order, op))
-                .collect(Collectors.toList())
-                .forEach(orderItemRepository::save);
+                .collect(Collectors.toList());
+        orderItemRepository.saveAll(orderItems);
 
         return order.getId();
     }
