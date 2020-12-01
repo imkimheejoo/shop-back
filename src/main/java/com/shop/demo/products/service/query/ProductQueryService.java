@@ -54,10 +54,10 @@ public class ProductQueryService {
     // 방법 2 엔티티로 조회하고 DTO로 변환 -> oneTomany는 페이징 안됨(MultiBegException)
     public Page<ProductInfoDto> getRecentProducts(Pageable pageable) {
         // 쿼리 1번
-        Page<Product> products = productRepository.findProductsInfo2(pageable);
+        Page<Product> products = productRepository.findAll(pageable);
 
         // 쿼리 2번 (in 절)
-       return products.map(ProductInfoDto::toDto);
+        return products.map(ProductInfoDto::toDto);
     }
 
     public Page<ProductInfoDto> getProductsByCategory(String categoryName, Pageable pageable) {

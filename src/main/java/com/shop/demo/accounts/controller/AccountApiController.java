@@ -22,10 +22,10 @@ public class AccountApiController {
     private final JwtTokenProvider jwtTokenProvider;
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody @Valid LoginRequestDto loginRequestDto) {
+    public ResponseEntity<JwtAccessToken> login(@RequestBody @Valid LoginRequestDto loginRequestDto) {
         Account account = accountService.authenticate(loginRequestDto.getEmail(), loginRequestDto.getPassword());
         String accessToken = jwtTokenProvider.createToken(account.getEmail());
 
-        return new ResponseEntity(JwtAccessToken.builder().accessToken(accessToken).build(), HttpStatus.OK);
+        return new ResponseEntity<>(JwtAccessToken.builder().accessToken(accessToken).build(), HttpStatus.OK);
     }
 }
