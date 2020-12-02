@@ -1,7 +1,5 @@
 package com.shop.demo.carts.service.command;
 
-import com.shop.demo.accounts.domain.Account;
-import com.shop.demo.accounts.repository.AccountRepository;
 import com.shop.demo.carts.Cart;
 import com.shop.demo.carts.CartItem;
 import com.shop.demo.carts.CartItemInfo;
@@ -19,12 +17,12 @@ public class CartService {
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;
 
-    public void saveCartItem(Long accountId,CartItemInfo cartItemInfo) {
+    public void saveCartItem(Long accountId, CartItemInfo cartItemInfo) {
         Cart cart = cartRepository.findByAccountId(accountId)
-                .orElse(cartRepository.save(Cart.empty()));
+                .orElseGet(() -> cartRepository.save(Cart.empty()));
 
         boolean hasSameItem = cart.hasSameItem(cartItemInfo);
-        if(hasSameItem) {
+        if (hasSameItem) {
             cart.renewItemCount(cartItemInfo);
             return;
         }

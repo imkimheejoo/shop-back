@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -18,7 +19,7 @@ class CartApiControllerTest extends MockMvcTemplate {
     private static final CartItemInfo cartItemInfo = new CartItemInfo(6L, 7L, 2);
 
     @Test
-    @Rollback
+    @Transactional
     void 기존_장바구니에_상품추가() throws Exception {
         this.mockMvc.perform(post(COMMON_URL + "/item")
                 .header(AUTHORIZATION, "Bearer " + getAccessToken("email@email.com", "password"))
@@ -29,7 +30,7 @@ class CartApiControllerTest extends MockMvcTemplate {
     }
 
     @Test
-    @Rollback
+    @Transactional
     void 새_장바구니에_상품추가() throws Exception {
         this.mockMvc.perform(post(COMMON_URL + "/item")
                 .header(AUTHORIZATION, "Bearer " + getAccessToken("email2@email.com", "password"))
