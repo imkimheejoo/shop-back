@@ -1,6 +1,6 @@
 package com.shop.demo.products.controller;
 
-import com.shop.demo.MockMvcTemplate;
+import com.shop.demo.common.MockMvcTemplate;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

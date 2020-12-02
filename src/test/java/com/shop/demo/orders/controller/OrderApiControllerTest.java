@@ -1,6 +1,6 @@
 package com.shop.demo.orders.controller;
 
-import com.shop.demo.MockMvcTemplate;
+import com.shop.demo.common.MockMvcTemplate;
 import com.shop.demo.common.ItemInfo;
 import com.shop.demo.common.Money;
 import com.shop.demo.dto.OrderInfo;

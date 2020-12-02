@@ -7,7 +7,14 @@ import lombok.Setter;
 
 @Getter
 @Setter
-//@NoArgsConstructor
-//@AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class CartItemDto {
+
+    private Long id;
+    private Long productId;
+    private String productName;
+    private CartItemOptionDto option;
+    private String imageUrl;
+    private int totalPrice;
 }
