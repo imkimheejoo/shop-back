@@ -4,6 +4,8 @@ import com.shop.demo.accounts.domain.Account;
 import com.shop.demo.accounts.domain.AccountRole;
 import com.shop.demo.accounts.dto.SignUpRequestDto;
 import com.shop.demo.accounts.service.command.AccountService;
+import com.shop.demo.carts.Cart;
+import com.shop.demo.carts.repository.CartRepository;
 import com.shop.demo.common.Money;
 import com.shop.demo.coupons.AccountCoupon;
 import com.shop.demo.coupons.Coupon;
@@ -29,6 +31,7 @@ public class ApplicationRunnerConfig implements ApplicationRunner {
     private final DeliveryRepository deliveryRepository;
     private final CouponRepository couponRepository;
     private final AccountCouponRepository accountCouponRepository;
+    private final CartRepository cartRepository;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -41,6 +44,12 @@ public class ApplicationRunnerConfig implements ApplicationRunner {
         accountCouponRepository.save(new AccountCoupon(account.getId(), coupon, true));
 
         saveProducts();
+        Cart cart = cartRepository.save(new Cart(account));
+        saveCartItem(cart);
+
+    }
+
+    private void saveCartItem(Cart cart) {
 
     }
 

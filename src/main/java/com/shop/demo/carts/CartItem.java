@@ -1,16 +1,15 @@
 package com.shop.demo.carts;
 
-import com.shop.demo.common.ItemInfo;
+import com.shop.demo.common.BaseTimeEntity;
 import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
-@AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class CartItem {
+public class CartItem extends BaseTimeEntity {
 
     @Id
     @GeneratedValue
@@ -21,6 +20,18 @@ public class CartItem {
     private Cart cart;
 
     @Embedded
-    private ItemInfo itemInfo;
+    private CartItemInfo info;
 
+    public CartItem(CartItemInfo cartItemInfo, Cart cart) {
+        this.info = cartItemInfo;
+        this.cart = cart;
+    }
+
+    public boolean isSameItem(CartItemInfo cartItemInfo) {
+        return this.info.equals(cartItemInfo);
+    }
+
+    public void addCount(int itemCount) {
+        this.info.addCount(itemCount);
+    }
 }
