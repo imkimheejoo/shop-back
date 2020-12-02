@@ -20,18 +20,14 @@ public class Cart {
     @OneToMany(mappedBy = "cart")
     private Set<CartItem> cartItems = new HashSet<>();
 
-    public Cart(Account account) {
-        this.account = account;
+    public Cart(Long accountId) {
+        this.accountId = accountId;
     }
 
-    /**
-     * 변경에는 딱히 상관이 없는데 account 삭제되면 사실 Cart도 다 없어져야해서 orpahan.. 일단 이렇게 고
-     */
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private Account account;
+    private Long accountId;
 
-    public static Cart empty() {
-        return new Cart();
+    public static Cart empty(Long accountId) {
+        return new Cart(accountId);
     }
 
     public boolean hasSameItem(CartItemInfo cartItemInfo) {

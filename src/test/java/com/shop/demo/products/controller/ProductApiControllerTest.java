@@ -61,7 +61,7 @@ class ProductApiControllerTest extends MockMvcTemplate {
 
     @Test
     void 상품_조회_성공() throws Exception {
-        mockMvc.perform(get(COMMON_URL + "/2"))
+        mockMvc.perform(get(COMMON_URL + "/6"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath(".content").exists())

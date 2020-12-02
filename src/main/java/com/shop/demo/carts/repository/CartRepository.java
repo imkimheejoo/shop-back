@@ -19,10 +19,9 @@ public interface CartRepository extends JpaRepository<Cart, Long> {
             "inner join CartItem ci on c.id = ci.cart.id " +
             "inner join Product p on ci.info.productId = p.id " +
             "inner join ProductOption po on ci.info.productOptionId = po.id " +
-            "where c.account.id = :accountId ")
+            "where c.accountId = :accountId ")
     List<CartItemDto> findCartItemsByAccountId(@Param("accountId") Long accountId);
 
     @EntityGraph(attributePaths = {"cartItems"})
-    @Query("select c from Cart c where c.account.id = :accountId ")
     Optional<Cart> findByAccountId(@Param("accountId") Long accountId);
 }

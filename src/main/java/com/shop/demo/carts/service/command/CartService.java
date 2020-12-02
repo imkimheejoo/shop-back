@@ -19,7 +19,7 @@ public class CartService {
 
     public void saveCartItem(Long accountId, CartItemInfo cartItemInfo) {
         Cart cart = cartRepository.findByAccountId(accountId)
-                .orElseGet(() -> cartRepository.save(Cart.empty()));
+                .orElseGet(() -> cartRepository.save(Cart.empty(accountId)));
 
         boolean hasSameItem = cart.hasSameItem(cartItemInfo);
         if (hasSameItem) {

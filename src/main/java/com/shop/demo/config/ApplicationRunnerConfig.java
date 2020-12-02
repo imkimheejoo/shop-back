@@ -50,7 +50,7 @@ public class ApplicationRunnerConfig implements ApplicationRunner {
         accountCouponRepository.save(new AccountCoupon(account.getId(), coupon, true));
 
         saveProducts();
-        Cart cart = cartRepository.save(new Cart(account));
+        Cart cart = cartRepository.save(new Cart(account.getId()));
         saveCartItem(cart);
 
         SignUpRequestDto signUpRequestDto2 = new SignUpRequestDto("email2@email.com", "password", "김이름");
