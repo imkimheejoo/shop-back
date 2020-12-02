@@ -1,5 +1,7 @@
 package com.shop.demo.config;
 
+import com.shop.demo.accounts.domain.AccountRole;
+import com.shop.demo.accounts.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,6 +19,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests().mvcMatchers("/api/carts/**")
+                .hasRole(AccountRole.CUSTOMER.name());
+
         http.authorizeRequests().anyRequest().permitAll();
 
         http
