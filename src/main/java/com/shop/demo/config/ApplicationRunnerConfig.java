@@ -5,6 +5,8 @@ import com.shop.demo.accounts.domain.AccountRole;
 import com.shop.demo.accounts.dto.SignUpRequestDto;
 import com.shop.demo.accounts.service.command.AccountService;
 import com.shop.demo.carts.Cart;
+import com.shop.demo.carts.CartItem;
+import com.shop.demo.carts.CartItemInfo;
 import com.shop.demo.carts.repository.CartRepository;
 import com.shop.demo.common.Money;
 import com.shop.demo.coupons.AccountCoupon;
@@ -16,11 +18,15 @@ import com.shop.demo.deliveries.repository.DeliveryRepository;
 import com.shop.demo.products.Category;
 import com.shop.demo.products.Product;
 import com.shop.demo.products.ProductOption;
+import com.shop.demo.products.repository.CartItemRepository;
+import com.shop.demo.products.repository.ProductOptionRepository;
 import com.shop.demo.products.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.Arrays;
 
 @Configuration
 @RequiredArgsConstructor
@@ -32,6 +38,7 @@ public class ApplicationRunnerConfig implements ApplicationRunner {
     private final CouponRepository couponRepository;
     private final AccountCouponRepository accountCouponRepository;
     private final CartRepository cartRepository;
+    private final CartItemRepository cartItemRepository;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -47,10 +54,14 @@ public class ApplicationRunnerConfig implements ApplicationRunner {
         Cart cart = cartRepository.save(new Cart(account));
         saveCartItem(cart);
 
+        SignUpRequestDto signUpRequestDto2 = new SignUpRequestDto("email2@email.com", "password", "김이름");
+        Account account2 = accountService.register(signUpRequestDto2, AccountRole.CUSTOMER);
     }
 
     private void saveCartItem(Cart cart) {
-
+        CartItem cartItem = new CartItem(new CartItemInfo(6L, 7L,1), cart);
+        CartItem cartItem2 = new CartItem(new CartItemInfo(6L, 8L,1), cart);
+        cartItemRepository.saveAll(Arrays.asList(cartItem,cartItem2));
     }
 
     private void saveProducts() {
