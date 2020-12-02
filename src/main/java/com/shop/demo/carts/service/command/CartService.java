@@ -1,8 +1,8 @@
 package com.shop.demo.carts.service.command;
 
-import com.shop.demo.carts.Cart;
-import com.shop.demo.carts.CartItem;
-import com.shop.demo.carts.CartItemInfo;
+import com.shop.demo.carts.domain.Cart;
+import com.shop.demo.carts.domain.CartItem;
+import com.shop.demo.carts.domain.CartItemInfo;
 import com.shop.demo.carts.repository.CartRepository;
 import com.shop.demo.products.repository.CartItemRepository;
 import lombok.RequiredArgsConstructor;

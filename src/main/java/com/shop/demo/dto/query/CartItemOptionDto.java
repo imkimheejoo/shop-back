@@ -11,6 +11,7 @@ public class CartItemOptionDto {
 
     private Long optionId;
     private String optionName;
+    private long additionalPrice;
     private int count;
 
 }

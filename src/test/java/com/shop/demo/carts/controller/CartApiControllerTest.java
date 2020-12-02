@@ -1,13 +1,13 @@
 package com.shop.demo.carts.controller;
 
-import com.shop.demo.carts.CartItemInfo;
+import com.shop.demo.carts.domain.CartItemInfo;
 import com.shop.demo.common.MockMvcTemplate;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -38,6 +38,16 @@ class CartApiControllerTest extends MockMvcTemplate {
                 .content(objectMapper.writeValueAsString(cartItemInfo)))
                 .andDo(print())
                 .andExpect(status().isOk());
+    }
 
+    @Test
+    @Transactional
+    void 회원의_장바구니_조회() throws Exception {
+        this.mockMvc.perform(get(COMMON_URL)
+                .header(AUTHORIZATION, "Bearer " + getAccessToken("email@email.com", "password"))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(cartItemInfo)))
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 }

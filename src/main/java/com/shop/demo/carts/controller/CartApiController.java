@@ -1,7 +1,7 @@
 package com.shop.demo.carts.controller;
 
 import com.shop.demo.accounts.domain.LoginId;
-import com.shop.demo.carts.CartItemInfo;
+import com.shop.demo.carts.domain.CartItemInfo;
 import com.shop.demo.carts.service.command.CartService;
 import com.shop.demo.carts.service.query.CartQueryService;
 import lombok.RequiredArgsConstructor;
