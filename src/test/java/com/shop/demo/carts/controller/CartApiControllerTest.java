@@ -65,7 +65,7 @@ class CartApiControllerTest extends MockMvcTemplate {
         this.mockMvc.perform(delete(COMMON_URL+ "/item/79")
                 .header(AUTHORIZATION, "Bearer " + getAccessToken("email2@email.com", "password")))
                 .andDo(print())
-                .andExpect(status().isForbidden());
+                .andExpect(status().isNotFound());
     }
 
     @Test

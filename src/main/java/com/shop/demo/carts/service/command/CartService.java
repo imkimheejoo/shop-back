@@ -7,7 +7,6 @@ import com.shop.demo.carts.repository.CartItemRepository;
 import com.shop.demo.carts.repository.CartRepository;
 import com.shop.demo.error.ErrorCode;
 import com.shop.demo.error.exception.NotFoundDataException;
-import com.shop.demo.error.exception.UnauthorizedCustomerException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,12 +45,7 @@ public class CartService {
     }
 
     private CartItem findCartItem(Long accountId, Long cartItemId) {
-        CartItem cartItem = cartItemRepository.findWithCartById(cartItemId)
-                .orElseThrow(() -> new NotFoundDataException(ErrorCode.NOT_FOUND));
-
-        if (!cartItem.isOwner(accountId)) {
-            throw new UnauthorizedCustomerException(ErrorCode.ACCESS_DENIED);
-        }
-        return cartItem;
+        return cartItemRepository.findByIdAndAccountId(cartItemId, accountId)
+                .orElseThrow(() -> new NotFoundDataException(ErrorCode.NOT_FOUND)); // todo 날라가는 sql 확인..
     }
 }
