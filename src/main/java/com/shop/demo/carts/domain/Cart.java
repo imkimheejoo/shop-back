@@ -43,4 +43,8 @@ public class Cart {
         cartItems.stream().filter(ci ->ci.isSameItem(cartItemInfo))
                 .findFirst().get().addCount(cartItemInfo.getCount());
     }
+
+    public boolean isOwner(Long accountId) {
+        return this.accountId.equals(accountId);
+    }
 }

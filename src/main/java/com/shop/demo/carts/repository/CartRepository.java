@@ -23,5 +23,7 @@ public interface CartRepository extends JpaRepository<Cart, Long> {
     List<CartItemDto> findCartItemsByAccountId(@Param("accountId") Long accountId);
 
     @EntityGraph(attributePaths = {"cartItems"})
+    Optional<Cart> findWithCartItemsByAccountId(@Param("accountId") Long accountId);
+
     Optional<Cart> findByAccountId(@Param("accountId") Long accountId);
 }

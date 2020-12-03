@@ -34,4 +34,8 @@ public class CartItem extends BaseTimeEntity {
     public void addCount(int itemCount) {
         this.info.addCount(itemCount);
     }
+
+    public boolean isOwner(Long accountId) {
+        return cart.isOwner(accountId);
+    }
 }

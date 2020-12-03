@@ -26,11 +26,4 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Override
     @EntityGraph(attributePaths = {"options"})
     Optional<Product> findById(Long productId);
-
-    @Query(value = "select new com.shop.demo.dto.query.ProductInfoDto(p.id, p.title, p.price.money, p.imageUrl) " +
-            "from Product p")
-    Page<ProductInfoDto> findProductsInfo(Pageable pageable);
-    //distinct 는 한 줄이 완전히 똑같을 때 만 날라감 , id만 같을 경우에는 안됨 근데 JPA는 해줌(어플리케이션 단에서!, 디비단 아님!)
-    @Query("select p from Product p")
-    Page<Product> findProductsInfo2(Pageable pageable);
 }

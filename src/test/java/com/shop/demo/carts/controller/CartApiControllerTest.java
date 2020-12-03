@@ -7,8 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -49,5 +48,32 @@ class CartApiControllerTest extends MockMvcTemplate {
                 .content(objectMapper.writeValueAsString(cartItemInfo)))
                 .andDo(print())
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    @Transactional
+    void 장바구니_아이템_삭제_성공() throws Exception {
+        this.mockMvc.perform(delete(COMMON_URL + "/item/79")
+                .header(AUTHORIZATION, "Bearer " + getAccessToken("email@email.com", "password")))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @Transactional
+    void 장바구니_아이템_삭제_실패_다른사람의_장바구니상품_삭제() throws Exception {
+        this.mockMvc.perform(delete(COMMON_URL+ "/item/79")
+                .header(AUTHORIZATION, "Bearer " + getAccessToken("email2@email.com", "password")))
+                .andDo(print())
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @Transactional
+    void 장바구니_아이템_삭제_실패_장바구니아이템_없음() throws Exception {
+        this.mockMvc.perform(delete(COMMON_URL+ "/item/1")
+                .header(AUTHORIZATION, "Bearer " + getAccessToken("email@email.com", "password")))
+                .andDo(print())
+                .andExpect(status().isNotFound());
     }
 }

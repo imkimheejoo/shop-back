@@ -29,4 +29,10 @@ public class CartApiController {
     public ResponseEntity getMyCart(@LoginId Long id) {
         return new ResponseEntity(cartQueryService.getCartItemsByAccount(id), HttpStatus.OK);
     }
+
+    @DeleteMapping("item/{cartItemId}")
+    public ResponseEntity deleteCartItem(@LoginId Long id, @PathVariable Long cartItemId) {
+        cartService.deleteCartItem(id, cartItemId);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }
