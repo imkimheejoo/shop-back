@@ -1,5 +1,7 @@
 package com.shop.demo.carts.domain;
 
+import com.shop.demo.error.ErrorCode;
+import com.shop.demo.error.exception.InvalidInputException;
 import lombok.*;
 
 import javax.persistence.Column;
@@ -36,5 +38,12 @@ public class CartItemInfo {
     @Override
     public int hashCode() {
         return Objects.hash(getProductId(), getProductOptionId());
+    }
+
+    public void updateCount(int count) {
+        if (count <= 0) {
+            throw new InvalidInputException(ErrorCode.INVALID_TYPE_VALUE);
+        }
+        this.count = count;
     }
 }

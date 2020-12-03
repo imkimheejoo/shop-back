@@ -35,4 +35,10 @@ public class CartApiController {
         cartService.deleteCartItem(id, cartItemId);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @PatchMapping("item/{cartItemId}")
+    public ResponseEntity updateCartItemCount(@LoginId Long id, @PathVariable Long cartItemId, @RequestBody int count) {
+        cartService.updateCartItemCount(id, cartItemId, count);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }

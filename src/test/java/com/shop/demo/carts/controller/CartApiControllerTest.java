@@ -76,4 +76,26 @@ class CartApiControllerTest extends MockMvcTemplate {
                 .andDo(print())
                 .andExpect(status().isNotFound());
     }
+
+    @Test
+    @Transactional
+    void 장바구니_아이템_개수_변경() throws Exception {
+        this.mockMvc.perform(patch(COMMON_URL+ "/item/79")
+                .header(AUTHORIZATION, "Bearer " + getAccessToken("email@email.com", "password"))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(10)))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    @Transactional
+    void 장바구니_아이템_개수_변경_실패_개수_0이하() throws Exception {
+        this.mockMvc.perform(patch(COMMON_URL+ "/item/79")
+                .header(AUTHORIZATION, "Bearer " + getAccessToken("email@email.com", "password"))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(0)))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
 }
