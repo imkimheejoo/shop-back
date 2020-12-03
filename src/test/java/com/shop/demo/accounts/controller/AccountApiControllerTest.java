@@ -1,6 +1,6 @@
 package com.shop.demo.accounts.controller;
 
-import com.shop.demo.MockMvcTemplate;
+import com.shop.demo.common.MockMvcTemplate;
 import com.shop.demo.accounts.dto.LoginRequestDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

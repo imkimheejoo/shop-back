@@ -9,7 +9,7 @@ class MoneyTest {
 
     @Test
     void 생성_실패_마이너스() {
-        assertThrows(InvalidPriceException.class, () -> new Money(-10L));
+        assertThrows(InvalidPriceException.class, () -> new Money(-10));
     }
 
     @Test
