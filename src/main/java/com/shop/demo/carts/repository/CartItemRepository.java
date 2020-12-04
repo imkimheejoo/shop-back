@@ -12,7 +12,6 @@ import java.util.Optional;
 @Repository
 public interface CartItemRepository extends JpaRepository<CartItem, Long> {
 
-    @EntityGraph(attributePaths = {"cart"})
-    @Query("select ci from CartItem ci where ci.id = :cartItemId")
-    Optional<CartItem> findWithCartById(@Param("cartItemId") Long cartItemId);
+    @Query("select ci from CartItem ci where ci.id = :cartItemId and ci.cart.accountId = :accountId")
+    Optional<CartItem> findByIdAndAccountId(@Param("cartItemId") Long cartItemId, @Param("accountId") Long accountId);
 }

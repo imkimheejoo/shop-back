@@ -1,8 +1,6 @@
 package com.shop.demo.carts.domain;
 
 import com.shop.demo.common.BaseTimeEntity;
-import com.shop.demo.error.ErrorCode;
-import com.shop.demo.error.exception.InvalidInputException;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -37,11 +35,7 @@ public class CartItem extends BaseTimeEntity {
     }
 
     public void addCount(int itemCount) {
-        this.info.addCount(itemCount);
-    }
-
-    public boolean isOwner(Long accountId) {
-        return cart.isOwner(accountId);
+        this.info.increaseCount(itemCount);
     }
 
     public void updateCount(int count) {

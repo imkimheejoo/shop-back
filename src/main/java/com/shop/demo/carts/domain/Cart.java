@@ -1,9 +1,14 @@
 package com.shop.demo.carts.domain;
 
-import com.shop.demo.accounts.domain.Account;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -30,21 +35,15 @@ public class Cart {
         return new Cart(accountId);
     }
 
-    public boolean hasSameItem(CartItemInfo cartItemInfo) {
-        return cartItems.stream()
-                .anyMatch(ci -> ci.isSameItem(cartItemInfo));
-    }
-
-    public void addItem(CartItem cartItem) {
-        cartItems.add(cartItem);
-    }
-
-    public void renewItemCount(CartItemInfo cartItemInfo) {
-        cartItems.stream().filter(ci ->ci.isSameItem(cartItemInfo))
-                .findFirst().get().addCount(cartItemInfo.getCount());
-    }
-
-    public boolean isOwner(Long accountId) {
-        return this.accountId.equals(accountId);
+    public CartItem addCartItem(CartItemInfo cartItemInfo) {
+        for (CartItem cartItem : cartItems) {
+            if (cartItem.isSameItem(cartItemInfo)) {
+                cartItem.addCount(cartItemInfo.getCount());
+                return cartItem;
+            }
+        }
+        CartItem newItem = new CartItem(cartItemInfo, this);
+        cartItems.add(newItem);
+        return newItem;
     }
 }

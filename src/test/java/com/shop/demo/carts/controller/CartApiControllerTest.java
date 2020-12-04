@@ -2,6 +2,7 @@ package com.shop.demo.carts.controller;
 
 import com.shop.demo.carts.domain.CartItemInfo;
 import com.shop.demo.common.MockMvcTemplate;
+import com.shop.demo.dto.Count;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -65,7 +66,7 @@ class CartApiControllerTest extends MockMvcTemplate {
         this.mockMvc.perform(delete(COMMON_URL+ "/item/79")
                 .header(AUTHORIZATION, "Bearer " + getAccessToken("email2@email.com", "password")))
                 .andDo(print())
-                .andExpect(status().isForbidden());
+                .andExpect(status().isNotFound());
     }
 
     @Test
@@ -83,7 +84,7 @@ class CartApiControllerTest extends MockMvcTemplate {
         this.mockMvc.perform(patch(COMMON_URL+ "/item/79")
                 .header(AUTHORIZATION, "Bearer " + getAccessToken("email@email.com", "password"))
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(10)))
+                .content(objectMapper.writeValueAsString(new Count(10))))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
@@ -94,7 +95,7 @@ class CartApiControllerTest extends MockMvcTemplate {
         this.mockMvc.perform(patch(COMMON_URL+ "/item/79")
                 .header(AUTHORIZATION, "Bearer " + getAccessToken("email@email.com", "password"))
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(0)))
+                .content(objectMapper.writeValueAsString(new Count(0))))
                 .andDo(print())
                 .andExpect(status().isBadRequest());
     }

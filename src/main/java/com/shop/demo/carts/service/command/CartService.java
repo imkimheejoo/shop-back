@@ -7,7 +7,6 @@ import com.shop.demo.carts.repository.CartItemRepository;
 import com.shop.demo.carts.repository.CartRepository;
 import com.shop.demo.error.ErrorCode;
 import com.shop.demo.error.exception.NotFoundDataException;
-import com.shop.demo.error.exception.UnauthorizedCustomerException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,20 +23,12 @@ public class CartService {
         Cart cart = cartRepository.findWithCartItemsByAccountId(accountId)
                 .orElseGet(() -> cartRepository.save(Cart.empty(accountId)));
 
-        boolean hasSameItem = cart.hasSameItem(cartItemInfo);
-        if (hasSameItem) {
-            cart.renewItemCount(cartItemInfo);
-            return;
-        }
-
-        CartItem newItem = new CartItem(cartItemInfo, cart);
-        cartItemRepository.save(newItem);
-        cart.addItem(newItem);
+        CartItem cartItem = cart.addCartItem(cartItemInfo);
+        cartItemRepository.save(cartItem);
     }
 
     public void deleteCartItem(Long accountId, Long cartItemId) {
-        CartItem cartItem = findCartItem(accountId, cartItemId);
-        cartItemRepository.delete(cartItem);
+        cartItemRepository.delete(findCartItem(accountId, cartItemId));
     }
 
     public void updateCartItemCount(Long accountId, Long cartItemId, int count) {
@@ -46,12 +37,7 @@ public class CartService {
     }
 
     private CartItem findCartItem(Long accountId, Long cartItemId) {
-        CartItem cartItem = cartItemRepository.findWithCartById(cartItemId)
-                .orElseThrow(() -> new NotFoundDataException(ErrorCode.NOT_FOUND));
-
-        if (!cartItem.isOwner(accountId)) {
-            throw new UnauthorizedCustomerException(ErrorCode.ACCESS_DENIED);
-        }
-        return cartItem;
+        return cartItemRepository.findByIdAndAccountId(cartItemId, accountId)
+                .orElseThrow(() -> new NotFoundDataException(ErrorCode.NOT_FOUND)); // todo 날라가는 sql 확인..
     }
 }

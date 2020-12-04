@@ -4,10 +4,12 @@ import com.shop.demo.accounts.domain.LoginId;
 import com.shop.demo.carts.domain.CartItemInfo;
 import com.shop.demo.carts.service.command.CartService;
 import com.shop.demo.carts.service.query.CartQueryService;
+import com.shop.demo.dto.Count;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -37,8 +39,9 @@ public class CartApiController {
     }
 
     @PatchMapping("item/{cartItemId}")
-    public ResponseEntity updateCartItemCount(@LoginId Long id, @PathVariable Long cartItemId, @RequestBody int count) {
-        cartService.updateCartItemCount(id, cartItemId, count);
+    public ResponseEntity updateCartItemCount(@LoginId Long id, @PathVariable Long cartItemId,
+                                              @Validated @RequestBody Count count) {
+        cartService.updateCartItemCount(id, cartItemId, count.getCount());
         return new ResponseEntity(HttpStatus.OK);
     }
 }
