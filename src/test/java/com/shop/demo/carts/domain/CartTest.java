@@ -3,43 +3,32 @@ package com.shop.demo.carts.domain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class CartTest {
 
     private Cart cart;
-    private CartItem cartItem;
     private CartItemInfo cartItemInfo;
 
     @BeforeEach
     void setUp() {
         cart = new Cart();
         cartItemInfo = new CartItemInfo(6L, 7L, 1);
-        cartItem = new CartItem(cartItemInfo, cart);
+        cart.addCartItem(cartItemInfo);
     }
 
     @Test
-    void hasSameItem_중복_상품_존재_O() {
-        cart.addItem(cartItem);
-        assertTrue(cart.hasSameItem(cartItemInfo));
+    void addCartItem_기존아이템을_추가하는경우_기존수량에추가수량더하기() {
+        CartItem cartItem = cart.addCartItem(cartItemInfo);
+
+        assertEquals(cartItem.getInfo().getCount(), 2);
     }
 
     @Test
-    void hasSameItem_중복_상품_존재_X() {
-        assertFalse(cart.hasSameItem(cartItemInfo));
+    void addCartItem_새로운아이을_추가하는경우() {
+        CartItem cartItem = cart.addCartItem(new CartItemInfo(9L, 10L, 1));
+
+        assertEquals(cartItem.getInfo().getCount(), 1);
     }
 
-    @Test
-    void addItem() {
-    }
-
-    @Test
-    void renewItemCount() {
-        cart.addItem(cartItem);
-
-        cart.renewItemCount(new CartItemInfo(6L, 7L, 2));
-
-        assertTrue(cart.getCartItems().stream().anyMatch(ci -> ci.getInfo().getCount() == 3));
-    }
 }

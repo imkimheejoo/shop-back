@@ -23,20 +23,12 @@ public class CartService {
         Cart cart = cartRepository.findWithCartItemsByAccountId(accountId)
                 .orElseGet(() -> cartRepository.save(Cart.empty(accountId)));
 
-        boolean hasSameItem = cart.hasSameItem(cartItemInfo);
-        if (hasSameItem) {
-            cart.renewItemCount(cartItemInfo);
-            return;
-        }
-
-        CartItem newItem = new CartItem(cartItemInfo, cart);
-        cartItemRepository.save(newItem);
-        cart.addItem(newItem);
+        CartItem cartItem = cart.addCartItem(cartItemInfo);
+        cartItemRepository.save(cartItem);
     }
 
     public void deleteCartItem(Long accountId, Long cartItemId) {
-        CartItem cartItem = findCartItem(accountId, cartItemId);
-        cartItemRepository.delete(cartItem);
+        cartItemRepository.delete(findCartItem(accountId, cartItemId));
     }
 
     public void updateCartItemCount(Long accountId, Long cartItemId, int count) {

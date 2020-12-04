@@ -6,6 +6,7 @@ import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.validation.constraints.Min;
 import java.util.Objects;
 
 @Getter
@@ -20,10 +21,23 @@ public class CartItemInfo {
     private Long productOptionId;
 
     @Column(nullable = false)
+    @Min(1)
     private int count;
 
-    public void addCount(int count) {
+    public void increaseCount(int count) {
+        checkValidCount(count);
         this.count+=count;
+    }
+
+    public void updateCount(int count) {
+        checkValidCount(count);
+        this.count = count;
+    }
+
+    private void checkValidCount(int count) {
+        if (count <= 0) {
+            throw new InvalidInputException(ErrorCode.INVALID_TYPE_VALUE);
+        }
     }
 
     @Override
@@ -38,12 +52,5 @@ public class CartItemInfo {
     @Override
     public int hashCode() {
         return Objects.hash(getProductId(), getProductOptionId());
-    }
-
-    public void updateCount(int count) {
-        if (count <= 0) {
-            throw new InvalidInputException(ErrorCode.INVALID_TYPE_VALUE);
-        }
-        this.count = count;
     }
 }
