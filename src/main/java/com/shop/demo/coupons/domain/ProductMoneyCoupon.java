@@ -25,4 +25,9 @@ public class ProductMoneyCoupon extends Coupon{
     public Money discount(Money price) {
         return price.discount(discount);
     }
+
+    @Override
+    public boolean matchCouponType(Long productId) {
+        return product.getId().equals(productId);
+    }
 }
