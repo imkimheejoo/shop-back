@@ -9,8 +9,7 @@ import com.shop.demo.carts.domain.CartItem;
 import com.shop.demo.carts.domain.CartItemInfo;
 import com.shop.demo.carts.repository.CartRepository;
 import com.shop.demo.common.Money;
-import com.shop.demo.coupons.AccountCoupon;
-import com.shop.demo.coupons.Coupon;
+import com.shop.demo.coupons.domain.Coupon;
 import com.shop.demo.coupons.repository.AccountCouponRepository;
 import com.shop.demo.coupons.repository.CouponRepository;
 import com.shop.demo.deliveries.Delivery;
@@ -44,10 +43,6 @@ public class ApplicationRunnerConfig implements ApplicationRunner {
         SignUpRequestDto signUpRequestDto = new SignUpRequestDto("email@email.com", "password", "김이름");
         Account account = accountService.register(signUpRequestDto, AccountRole.CUSTOMER);
         Delivery delivery = deliveryRepository.save(new Delivery("12345", "서울특별시 강남구 신비아파트 1동 2호", account.getId()));
-
-        Coupon coupon = couponRepository.save(new Coupon("12345-12", "2500원할인", new Money(2500)));
-        accountCouponRepository.save(new AccountCoupon(account.getId(), coupon, false));
-        accountCouponRepository.save(new AccountCoupon(account.getId(), coupon, true));
 
         saveProducts();
         Cart cart = cartRepository.save(new Cart(account.getId()));

@@ -1,7 +1,6 @@
 package com.shop.demo.orders.service.command;
 
 import com.shop.demo.common.Money;
-import com.shop.demo.coupons.AccountCoupon;
 import com.shop.demo.coupons.repository.AccountCouponRepository;
 import com.shop.demo.deliveries.Delivery;
 import com.shop.demo.deliveries.repository.DeliveryRepository;
