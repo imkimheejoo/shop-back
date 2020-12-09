@@ -12,6 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RequiredArgsConstructor
 @Service
 @Transactional
@@ -29,13 +32,18 @@ public class CouponService {
         return accountCoupon.getCoupon();
     }
 
-    public void addCoupon(ProductCouponDto couponDto) {
-        couponRepository.save(Coupon.ofProductCoupon(couponDto));
+    public void addProductCoupon(List<ProductCouponDto> couponDtos) {
+        List<Coupon> coupons = couponDtos.stream()
+                .map(Coupon::ofProductCoupon)
+                .collect(Collectors.toList());
+        couponRepository.saveAll(coupons);
     }
 
-    public void addCoupon(CouponDto couponDto) {
-        couponRepository.save(Coupon.ofTotalCoupon(couponDto));
+    public void addTotalCoupon(List<CouponDto> couponDtos) {
+        List<Coupon> coupons = couponDtos.stream()
+                .map(Coupon::ofTotalCoupon)
+                .collect(Collectors.toList());
+        couponRepository.saveAll(coupons);
     }
-
 
 }
