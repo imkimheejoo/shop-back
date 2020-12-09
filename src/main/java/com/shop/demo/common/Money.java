@@ -1,6 +1,7 @@
 package com.shop.demo.common;
 
 import com.shop.demo.error.ErrorCode;
+import com.shop.demo.error.exception.InvalidInputException;
 import com.shop.demo.error.exception.InvalidPriceException;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
@@ -25,7 +26,14 @@ public class Money {
         this.money = money;
     }
 
-    public Money discount(Money discount) {
+    public Money discount(final Money discount) {
         return new Money(this.money - discount.money < 0 ? 0 : this.money - discount.money);
+    }
+
+    public Money discount(final int discountPercent) {
+        if(discountPercent <= 0 || discountPercent > 100) {
+            throw new InvalidInputException(ErrorCode.INVALID_TYPE_VALUE);
+        }
+        return new Money((this.money * (100 - discountPercent)));
     }
 }
