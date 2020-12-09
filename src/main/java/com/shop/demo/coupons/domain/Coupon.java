@@ -8,12 +8,14 @@ import com.shop.demo.error.exception.InvalidInputException;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @EqualsAndHashCode(of = {"id"})
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-@DiscriminatorColumn(name = "dtype")
+@DiscriminatorColumn(name = "type")
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Coupon {
 
@@ -23,6 +25,9 @@ public abstract class Coupon {
 
     @Column(nullable = false)
     private String name;
+
+    @Enumerated(EnumType.STRING)
+    private CouponType type;
 
     @Builder
     public Coupon(String name) {
@@ -68,4 +73,6 @@ public abstract class Coupon {
     public abstract Money discount(Money price);
 
     public abstract boolean matchCouponType(Long productId);
+
+    public abstract long getDiscountInfo();
 }

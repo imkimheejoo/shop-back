@@ -32,4 +32,9 @@ public class ProductPercentCoupon extends Coupon {
     public boolean matchCouponType(Long productId) {
         return product.getId().equals(productId);
     }
+
+    @Override
+    public long getDiscountInfo() {
+        return percent;
+    }
 }

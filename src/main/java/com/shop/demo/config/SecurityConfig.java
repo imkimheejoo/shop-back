@@ -19,8 +19,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().mvcMatchers("/api/carts/**")
-                .hasRole(AccountRole.CUSTOMER.name());
+        http.authorizeRequests()
+                .mvcMatchers("/api/carts/**").hasRole(AccountRole.CUSTOMER.name())
+                .mvcMatchers("/api/coupons/all").hasRole(AccountRole.ADMIN.name())
+                .mvcMatchers("/api/coupons/**").hasRole(AccountRole.CUSTOMER.name());
 
         http.authorizeRequests().anyRequest().permitAll();
 

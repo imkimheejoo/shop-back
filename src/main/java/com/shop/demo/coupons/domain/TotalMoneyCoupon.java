@@ -34,4 +34,9 @@ public class TotalMoneyCoupon extends Coupon{
     public boolean matchCouponType(Long productId) {
         return true;
     }
+
+    @Override
+    public long getDiscountInfo() {
+        return discount.getMoney();
+    }
 }

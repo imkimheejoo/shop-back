@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -29,5 +30,10 @@ public class ProductMoneyCoupon extends Coupon{
     @Override
     public boolean matchCouponType(Long productId) {
         return product.getId().equals(productId);
+    }
+
+    @Override
+    public long getDiscountInfo() {
+        return discount.getMoney();
     }
 }
